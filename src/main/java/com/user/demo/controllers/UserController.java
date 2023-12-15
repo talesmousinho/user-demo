@@ -57,4 +57,13 @@ public class UserController {
     return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
   }
 
+  @PutMapping("/{id}")
+  @Operation(summary = "Update an existing user")
+  public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
+    user.setId(id);
+    logger.info("Request to update user: {}", user);
+    User updatedUser = userService.save(user);
+    return ResponseEntity.ok(updatedUser);
+  }
+
 }
