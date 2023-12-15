@@ -36,6 +36,12 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+    <!-- Sprig Boot Validation, for validating request body -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
     <!-- H2 Database, in-memory database -->
     <dependency>
       <groupId>com.h2database</groupId>
