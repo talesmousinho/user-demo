@@ -48,4 +48,13 @@ public class UserController {
     return ResponseEntity.ok(user);
   }
 
+  @PostMapping
+  @Operation(summary = "Create a new user")
+  public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    user.setId(null);
+    logger.info("Request to create user: {}", user);
+    User savedUser = userService.save(user);
+    return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+  }
+
 }
