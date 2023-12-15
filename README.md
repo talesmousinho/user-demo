@@ -9,6 +9,7 @@ This project is a technical challenge to implement CRUD operations through the d
 - [Requirements](#requirements)
 - [Issues](#issues)
 - [How to Run](#how-to-run)
+- [Swagger UI](#swagger-ui)
 
 ## Summary
 
@@ -80,3 +81,6 @@ java -jar target/user-demo-server-0.0.1-SNAPSHOT.jar
 ```
 
 The application will start running at http://localhost:8000.
+
+## Swagger UI
+Swagger UI is integrated for easy testing and interaction with the API. To access Swagger UI, once the application is running, visit http://localhost:8000/swagger-ui.html in your web browser.
