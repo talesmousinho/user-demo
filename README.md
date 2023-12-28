@@ -39,8 +39,6 @@ The system provides the following features:
 
 The API is built with Java 11, Spring Boot 2.7, Spring JPA, and H2 Database.
 
-Please refer to the "[How to Run](#how-to-run)" section for instructions on how to run the project and call the routes.
-
 ## Issues
 
 The development of this project was organized into the following tasks, each represented by a GitHub issue:
