@@ -67,4 +67,11 @@ public class GlobalExceptionHandler {
     Map<String, String> errorMessages = Collections.singletonMap("error", ex.getMessage());
     return new ResponseEntity<>(errorMessages, HttpStatus.NOT_FOUND);
   }
+
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<Map<String, String>> handleException(Exception ex, HttpServletRequest request) {
+    logger.error("Exception: ", ex);
+    Map<String, String> errorMessages = Collections.singletonMap("error", "Internal Server Error");
+    return new ResponseEntity<>(errorMessages, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
