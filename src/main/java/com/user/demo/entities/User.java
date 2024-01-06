@@ -13,7 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.user.demo.utils.Constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,6 +45,6 @@ public class User {
   @Column(nullable = false)
   @Temporal(TemporalType.DATE)
   @NotNull(message = "Birthdate is required")
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(pattern = Constants.DATE_FORMAT)
   private Date birthdate;
 }
