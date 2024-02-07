@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,16 +32,25 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Map<String, String> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
-    logger.error("Exception: ", ex);
+    logger.error("MethodArgumentNotValidException: ", ex);
 
     return ex.getBindingResult().getFieldErrors().stream()
         .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
   }
 
+  @ExceptionHandler(ConstraintViolationException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public Map<String, String> handleConstraintViolationException(ConstraintViolationException ex, HttpServletRequest request) {
+    logger.error("ConstraintViolationException: ", ex);
+
+    return ex.getConstraintViolations().stream()
+      .collect(Collectors.toMap(violation -> violation.getPropertyPath().toString(), ConstraintViolation::getMessage));
+  }
+
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Map<String, String> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpServletRequest request) {
-    logger.error("Exception: ", ex);
+    logger.error("HttpMessageNotReadableException: ", ex);
 
     Throwable rootCause = ex.getMostSpecificCause();
     if (rootCause instanceof InvalidFormatException) {
@@ -54,7 +65,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(EntityNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public void handleEntityNotFound(EntityNotFoundException ex, HttpServletRequest request) {
-    logger.error("Exception: ", ex);
+    logger.error("EntityNotFoundException: ", ex);
   }
 
   @Order(Ordered.LOWEST_PRECEDENCE)

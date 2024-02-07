@@ -9,12 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.user.demo.utils.Constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,18 +27,28 @@ public class User {
   private Long id;
 
   @Column(nullable = false)
-  @NotBlank(message = "Name is required")
-  @Size(max = 25, message = "Name must be less than 25 characters")
   private String name;
 
   @Column(nullable = false)
-  @NotBlank(message = "Surname is required")
-  @Size(max = 50, message = "Surname must be less than 50 characters")
-  private String surname;
+  private String lastname;
 
-  @Column(nullable = false)
-  @Temporal(TemporalType.DATE)
-  @NotNull(message = "Birthdate is required")
-  @JsonFormat(pattern = Constants.DATE_FORMAT)
-  private Date birthdate;
+  @Column(insertable = false, updatable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
+
+  @Column(insertable = false, updatable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updatedAt;
+
+  public User(String name, String lastname) {
+    this.name = name;
+    this.lastname = lastname;
+  }
+
+  public User(Long id, String name, String lastname) {
+    this.id = id;
+    this.name = name;
+    this.lastname = lastname;
+  }
+
 }

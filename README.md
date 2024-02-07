@@ -21,7 +21,7 @@ The API is built using Java 17, Spring Boot 2.7, and an in-memory database. It i
 
 The system provides the following features:
 
-- Get all users
+- Get all users, with pagination and sorting
 - Get user by ID
 - Create new user
 - Modify user
@@ -32,8 +32,9 @@ The system provides the following features:
 - User
   - ID
   - Name
-  - Surname
-  - Birthdate
+  - Lastname
+  - Created At (DB Entity level)
+  - Updated At (DB Entity level)
 
 ## Requirements
 

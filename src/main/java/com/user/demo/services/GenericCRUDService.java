@@ -1,21 +1,22 @@
 package com.user.demo.services;
 
-import java.util.List;
-
 import javax.persistence.EntityNotFoundException;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 public class GenericCRUDService<T, ID> {
 
-  private final JpaRepository<T, ID> repository;
+  private final PagingAndSortingRepository<T, ID> repository;
 
-  protected GenericCRUDService(JpaRepository<T, ID> repository) {
+  protected GenericCRUDService(PagingAndSortingRepository<T, ID> repository) {
     this.repository = repository;
   }
 
-  public List<T> findAll() {
-    return repository.findAll();
+  public Page<T> findAll(int page, int size, Sort sort) {
+    return repository.findAll(PageRequest.of(page, size, sort));
   }
 
   public T findById(ID id) throws EntityNotFoundException {
