@@ -15,7 +15,7 @@ This project is a technical challenge to implement CRUD operations through the d
 
 This project is a technical challenge to implement CRUD operations through the development of a REST API for user management.  
 The API receives and returns values in JSON format. It allows users to create, read, update, and delete User entities. Each User entity has a name, surname, and birthdate.  
-The API is built using Java 11, Spring Boot 2.7, and an in-memory database. It is designed to be easy to set up and run, with detailed instructions provided in the "[How to Run](#how-to-run)" section. 
+The API is built using Java 17, Spring Boot 2.7, and an in-memory database. It is designed to be easy to set up and run, with detailed instructions provided in the "[How to Run](#how-to-run)" section. 
 
 ## Features
 
@@ -37,7 +37,7 @@ The system provides the following features:
 
 ## Requirements
 
-The API is built with Java 11, Spring Boot 2.7, Spring JPA, and H2 Database.
+The API is built with Java 17, Spring Boot 2.7, Spring JPA, and H2 Database.
 
 ## Issues
 
@@ -56,7 +56,7 @@ The development of this project was organized into the following tasks, each rep
 
 ### Prerequisites
 
-- Java 11
+- Java 17
 
 1. Clone the repository to your local machine.
 ```bash
