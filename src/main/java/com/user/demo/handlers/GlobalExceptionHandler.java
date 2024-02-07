@@ -1,4 +1,4 @@
-package com.user.demo.utils;
+package com.user.demo.handlers;
 
 import java.util.Collections;
 import java.util.Map;
