@@ -79,7 +79,7 @@ cd user-demo/
 java -jar target/user-demo-server-0.0.1-SNAPSHOT.jar
 ```
 
-The application will start running at http://localhost:8000.
+The application will start running at http://localhost:8080.
 
 ## Swagger UI
-Swagger UI is integrated for easy testing and interaction with the API. To access Swagger UI, once the application is running, visit http://localhost:8000/swagger-ui.html in your web browser.
+Swagger UI is integrated for easy testing and interaction with the API. To access Swagger UI, once the application is running, visit http://localhost:8080/swagger-ui.html in your web browser.
