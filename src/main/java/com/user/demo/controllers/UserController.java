@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.user.demo.dto.UserDTO;
@@ -39,7 +39,7 @@ public class UserController {
 
   @GetMapping
   @Operation(summary = "Get all users, with pagination and sorting")
-  public ResponseEntity<Page<UserDTO>> getAllUsers(
+  public Page<UserDTO> getAllUsers(
     @RequestParam(required = false, defaultValue = "0") int page,
     @RequestParam(required = false, defaultValue = "25") int size,
     @RequestParam(required = false, defaultValue = "id") String sort
@@ -50,47 +50,48 @@ public class UserController {
       .findAll(page, size, Sort.by(sort))
       .map(userDTOMapper);
 
-    return ResponseEntity.ok(userResponseDTOs);
+    return userResponseDTOs;
   }
 
   @GetMapping("/{id}")
   @Operation(summary = "Get user by ID")
-  public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+  public UserDTO getUserById(@PathVariable Long id) {
     logger.info("Request to get user: {}", id);
 
     User user = userService.findById(id);
     UserDTO userDTO = userDTOMapper.apply(user);
-    return ResponseEntity.ok(userDTO);
+    return userDTO;
   }
 
   @PostMapping
   @Operation(summary = "Create a new user")
-  public ResponseEntity<UserDTO> createUser(@Validated @RequestBody UserDTO userDTO) {
+  @ResponseStatus(HttpStatus.CREATED)
+  public UserDTO createUser(@Validated @RequestBody UserDTO userDTO) {
     User user = new User(userDTO.name(), userDTO.lastname());
     logger.info("Request to create user: {}", user);
     
     User savedUser = userService.save(user);
     UserDTO savedUserDTO = userDTOMapper.apply(savedUser);
-    return new ResponseEntity<>(savedUserDTO, HttpStatus.CREATED);
+    return savedUserDTO;
   }
 
   @PutMapping("/{id}")
   @Operation(summary = "Update an existing user")
-  public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @Validated @RequestBody UserDTO userDTO) {
+  public UserDTO updateUser(@PathVariable Long id, @Validated @RequestBody UserDTO userDTO) {
     User user = new User(id, userDTO.name(), userDTO.lastname());
     logger.info("Request to update user: {}", user);
 
     User updatedUser = userService.save(user);
     UserDTO updatedUserDTO = userDTOMapper.apply(updatedUser);
-    return ResponseEntity.ok(updatedUserDTO);
+    return updatedUserDTO;
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete an existing user")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+  public Void deleteUser(@PathVariable Long id) {
     logger.info("Request to delete user: {}", id);
 
     userService.deleteById(id);
-    return ResponseEntity.ok().build();
+    return null;
   }
 }
