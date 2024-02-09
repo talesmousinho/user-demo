@@ -5,13 +5,13 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public class GenericCRUDService<T, ID> {
 
-  private final PagingAndSortingRepository<T, ID> repository;
+  private final JpaRepository<T, ID> repository;
 
-  protected GenericCRUDService(PagingAndSortingRepository<T, ID> repository) {
+  protected GenericCRUDService(JpaRepository<T, ID> repository) {
     this.repository = repository;
   }
 
